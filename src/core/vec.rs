@@ -1,5 +1,7 @@
 use std::ops::{Add, AddAssign, DivAssign, Index, IndexMut, Mul, MulAssign, Neg, SubAssign};
 
+use super::point::{Point2, Point3};
+
 pub struct Vector<const N: usize, T>([T; N]);
 
 impl<T, const N: usize> Default for Vector<N, T>
@@ -152,6 +154,18 @@ where
 {
     pub fn permute(&self, x: usize, y: usize, z: usize) -> Self {
         Self([self[x], self[y], self[z]])
+    }
+}
+
+impl<T> From<Point2<T>> for Vector2<T> {
+    fn from(value: Point2<T>) -> Self {
+        Self(value.take_inner())
+    }
+}
+
+impl<T> From<Point3<T>> for Vector3<T> {
+    fn from(value: Point3<T>) -> Self {
+        Self(value.take_inner())
     }
 }
 
